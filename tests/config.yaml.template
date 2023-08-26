@@ -1,0 +1,9 @@
+
+principal: first.last@mycomany.com
+experiment: /Users/first.last@mycompany.com/experiments/my_experiment
+
+workspace_registry:
+  model: my_model
+
+unity_catalog_registry:
+  model_name: my_catalog.my_schema.my_model

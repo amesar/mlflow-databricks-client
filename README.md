@@ -14,7 +14,7 @@ Only the registered model and experiment get permission endpoints have been impl
 
 ## Databricks-specific  MLflow API documentation
 
-Databricks-specific resources do not have consistent naming so it is hard at first glance to tell which resources
+Databricks-specific resources (endpoints) do not have consistent naming so it is hard at first glance to tell which MLflow resources
 are open source and which ones are Databricks-specific.
 
 Naming patterns for Databricks-specific MLflow resource fall into three categories:

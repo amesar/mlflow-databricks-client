@@ -1,8 +1,8 @@
 import json
 
 def show_versions():
-    #import mlflow
-    from databricks import sdk
+    import mlflow
+    #from databricks import sdk
     print("Versions:")
     print(f"   mlflow.version:",mlflow.__version__)
     #print(f"   sdk.version: {sdk.version.__version__}")
@@ -18,7 +18,9 @@ def dict_to_json(dct):
     return json.dumps(json.dumps(dct))
 
 
-def dump_as_json(dct, sort_keys=None):
+def dump_as_json(dct, title=None, sort_keys=None):
+    print(f"{title}:")
+    title = title or "Dict as JSON"
     print(json.dumps(dct, sort_keys=sort_keys, indent=2))
 
 
