@@ -2,11 +2,13 @@ from mlflow_databricks_client.rest.client import DatabricksMlflowClient
 #from mlflow_databricks_client.common.utils import dump_as_json
 from . import common_test
 
+
 client = DatabricksMlflowClient()
 model_name = common_test.cfg["workspace_registry"]["model"]
 
 #  "object_id": "/registered-models/94abcb7b9c49465f92a5fb459c26898a",
 #  "object_type": "registered-model",
+
 
 def test_get_registered_model_permissions_by_name():
     perms = client.get_registered_model_permissions(model_name)

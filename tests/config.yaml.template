@@ -6,4 +6,4 @@ workspace_registry:
   model: my_model
 
 unity_catalog_registry:
-  model_name: my_catalog.my_schema.my_model
+  model: my_catalog.my_schema.my_model
