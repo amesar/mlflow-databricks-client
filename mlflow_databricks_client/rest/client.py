@@ -81,3 +81,8 @@ class DatabricksUcMlflowClient(BaseDatabricksMlflowClient):
         # https://docs.databricks.com/api/workspace/grants/get
         resource =  f"unity-catalog/permissions/function/{model_name}"
         return self.client.get(resource) 
+
+    def update_registered_model_permissions(self, model_name, permissions):
+        # https://docs.databricks.com/api/workspace/grants/update
+        resource = f"unity-catalog/permissions/function/{model_name}"
+        return self.client.patch(resource, permissions) 

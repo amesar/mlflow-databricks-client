@@ -19,8 +19,8 @@ def dict_to_json(dct):
 
 
 def dump_as_json(dct, title=None, sort_keys=None):
-    print(f"{title}:")
-    title = title or "Dict as JSON"
+    if title:
+        print(f"{title}:")
     print(json.dumps(dct, sort_keys=sort_keys, indent=2))
 
 
