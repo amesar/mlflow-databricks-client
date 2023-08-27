@@ -27,6 +27,10 @@ class HttpClient():
         return self._mutate(requests.patch, resource, data)
 
 
+    def delete(self, resource, data=None):
+        return self._mutate(requests.delete, resource, data)
+
+
     def _mutate(self, method, resource, data=None):
         uri = self._mk_uri(resource)
         data = self._json_dumps(data)
