@@ -1,14 +1,41 @@
-# Databricks MLflow API Client - WIP
+# Databricks MLflow API Client
 
-Python client for Databricks-specific MLflow REST API endpoints.
+Python client for Databricks-specific MLflow REST API endpoints that are scattered around the Databricks API namespace.
+
+## Release Notes
+
+* WIP 
+* SDK client:
+  * Only has `get` experiment permission methods
+  * `set` and `update` experiment permission methods coming soon
+  * Registered model permission methods coming soon
 
 ## MLflow API Documentation
+
+### Open Source MLflow API
 
 * [Python API](https://www.mlflow.org/docs/latest/python_api/index.html) 
 * [REST API](https://www.mlflow.org/docs/latest/rest-api.html)
 * [Data Structures](https://www.mlflow.org/docs/latest/rest-api.html#data-structures)
 
-## Databricks-specific  MLflow API documentation
+### Databricks MLflow API
+
+#### REST API
+
+* Machine Learning
+  * [Experiments](https://docs.databricks.com/api/workspace/experiments)
+  * [Model Registry](https://docs.databricks.com/api/workspace/modelregistry)
+* Unity Catalog
+  * [Grants aka Permissions](https://docs.databricks.com/api/workspace/grants)
+
+#### [Python API (SDK)](https://databricks-sdk-py.readthedocs.io/en/latest/index.html)
+* [Machine Learning](https://databricks-sdk-py.readthedocs.io/en/latest/workspace/workspace-ml.html)
+  * [Experiments](https://databricks-sdk-py.readthedocs.io/en/latest/workspace/experiments.html)
+  * [Model Registry](https://databricks-sdk-py.readthedocs.io/en/latest/workspace/model_registry.html)
+* [Unity Catalog](https://databricks-sdk-py.readthedocs.io/en/latest/workspace/workspace-catalog.html)
+  * [Grants aka Permissions](https://databricks-sdk-py.readthedocs.io/en/latest/workspace/grants.html)
+
+## Databricks-specific  MLflow REST API Endpoints
 
 Databricks-specific resources (endpoints) do not have consistent naming so it is hard at first glance to tell which MLflow resources
 are open source and which ones are Databricks-specific.
@@ -59,16 +86,22 @@ Naming patterns for Databricks-specific MLflow resource fall into three categori
 
 ## Usage
 
-### Source code
+There are two clients:
+  * REST client - directly calls the REST API with signatures reflecting JSON payloads as returned by API
+  * SDK client - Pass-through shim to the Databricks SDK for just MLflow Databricks-specific methods
+
+### REST API Usage
+
+#### Source code
 
   * Client definition: [mlflow_databricks_client/rest/client.py](mlflow_databricks_client/rest/client.py)
   * Examples - [tests](tests):
-    * [test_rest_uc_model_permissions.py](tests/test_rest_uc_model_permissions.py)
-    * [test_rest_uc_oss.py](tests/test_rest_uc_oss.py)
     * [test_rest_model_permissions.py](tests/test_rest_model_permissions.py)
     * [test_rest_experiment_permissions.py](tests/test_rest_experiment_permissions.py)
+    * [test_rest_uc_model_permissions.py](tests/test_rest_uc_model_permissions.py)
+    * [test_rest_uc_oss.py](tests/test_rest_uc_oss.py)
 
-### Credentials
+#### Credentials
 
 See [Access the MLflow tracking server from outside Databricks](https://docs.databricks.com/en/mlflow/access-hosted-tracking-server.html).
 
@@ -79,32 +112,50 @@ To point to another workspace:
 export DATABRICKS_HOST=https://mycompany.my-workspace.com
 export DATABRICKS_TOKEN=MY_TOKEM
 ```
-### Example
+#### Example
 ```
 from databricks_mlflow_client.rest.client import DatabricksMlflowClient
-
 client = DatabricksMlflowClient()
-model = client.get_registered_model_databricks("Sklearn_Wine_best")
+model = client.get_experiment_permissions("Sklearn_Wine_best")
 print(model)
 ```
 
 ```
 {
-  "registered_model_databricks": {
-    "name": "Sklearn_Wine_best",
-    "creation_timestamp": 1680931584248,
-    "last_updated_timestamp": 1681435287008,
-    "user_id": "andre@mycompany.com",
-    "latest_versions": [
-      {
-        "name": "Sklearn_Wine_best",
-        "version": "10",
-        "creation_timestamp": 1681106535915,
-    . . .
-      }
-    ],
-    "id": "32aaa09aa75b42169eded072d87384ae",
-    "permission_level": "CAN_MANAGE"
-  }
+  "access_control_list": [
+    {
+      "all_permissions": [
+        {
+          "inherited": true,
+          "inherited_from_object": [
+            "/directories/767933989557963"
+          ],
+          "permission_level": "CAN_MANAGE"
+        }
+      ],
+      "display_name": "Andre API",
+      "user_name": "andre@mycompany.com"
+    },
+ . . .
 }
+```
+
+###  SDK API Usage
+
+#### Source code
+
+  * Client definition: [mlflow_databricks_client/sdk/client.py](mlflow_databricks_client/sdk/client.py)
+  * Examples - [tests](tests):
+    * [test_sdk_experiment_permissions.py](tests/test_sdk_experiment_permissions.py)
+
+#### Example
+```
+from databricks_mlflow_client.sdk.client import DatabricksMlflowClient
+client = DatabricksMlflowClient()
+model = client.get_experiment_permissions("Sklearn_Wine_best")
+print(model)
+```
+
+```
+ObjectPermissions(access_control_list=[AccessControlResponse(all_permissions=[Permission(inherited=True, inherited_from_object=['/directories/767933989557963'], permission_level=<PermissionLevel.CAN_MANAGE: 'CAN_MANAGE'>)], display_name='Andre API', group_name=None, service_principal_name=None, user_name='andre@mycompany.com'), AccessControlResponse(all_permissions=[Permission(inherited=True, inherited_from_object=['/directories/'], permission_level=<PermissionLevel.CAN_MANAGE: 'CAN_MANAGE'>)], display_name='root-service-principal-e2-demo-west-ws-do-not-delete', group_name=None, service_principal_name='091812d4-z5ec-4544-b6zf-64135891fee1', user_name=None), AccessControlResponse(all_permissions=[Permission(inherited=False, inherited_from_object=None, permission_level=<PermissionLevel.CAN_READ: 'CAN_READ'>)], display_name=None, group_name='users', service_principal_name=None, user_name=None), AccessControlResponse(all_permissions=[Permission(inherited=True, inherited_from_object=['/directories/'], permission_level=<PermissionLevel.CAN_MANAGE: 'CAN_MANAGE'>)], display_name=None, group_name='admins', service_principal_name=None, user_name=None)], object_id='/experiments/2668333326915655', object_type='mlflowExperiment')
 ```
