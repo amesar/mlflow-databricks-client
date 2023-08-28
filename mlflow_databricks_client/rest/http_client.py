@@ -45,7 +45,7 @@ class HttpClient():
     def _check_response(self, rsp, params=None):
         from requests.exceptions import HTTPError
         if rsp.status_code < 200 or rsp.status_code > 299:
-            msg = { "http_status_code": rsp.status_code, "uri": rsp.url, "params": params, "response": rsp.text }
+            msg = { "http_status_code": rsp.status_code, "uri": rsp.url, "method": rsp.request.method, "params": params, "response": rsp.text }
             raise HTTPError(json.dumps(msg))
         return rsp
 
