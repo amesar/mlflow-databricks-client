@@ -57,4 +57,34 @@ class BaseDatabricksMlflowClient:
 
 
 class DatabricksMlflowClient(BaseDatabricksMlflowClient):
-    pass
+
+    def get_registered_model_permissions(self, registered_model_id):
+        # https://docs.databricks.com/api/workspace/modelregistry/getregisteredmodelpermissions
+        return self.client.model_registry.get_registered_model_permissions(registered_model_id)
+
+    def get_registered_model_permissions_by_name(self, registered_model_name):
+        model_id = self.get_registered_model_id(registered_model_name)
+        return self.client.model_registry.get_registered_model_permissions(model_id)
+
+
+    def get_registered_model_permission_levels(self, registered_model_id):
+        # https://databricks-sdk-py.readthedocs.io/en/latest/workspace/model_registry.html#ModelRegistryAPI.get_registered_model_permission_levels
+        return self.client.model_registry.get_registered_model_permission_levels(registered_model_id)
+
+    def get_registered_model_permissions_levels_by_name(self, registered_model_name):
+        model_id = self.get_registered_model_id(registered_model_name)
+        return self.client.model_registry.get_registered_model_permission_levels(model_id)
+
+
+    def set_registered_model_permissions(self, registered_model_id, access_control_list):
+        # https://databricks-sdk-py.readthedocs.io/en/latest/workspace/model_registry.html#ModelRegistryAPI.set_registered_model_permissions
+        return self.client.model_registry.set_registered_model_permissions(registered_model_id, access_control_list=access_control_list)
+
+    def update_registered_model_permissions(self, registered_model_id, access_control_list):
+        # https://databricks-sdk-py.readthedocs.io/en/latest/workspace/model_registry.html#ModelRegistryAPI.update_registered_model_permissions
+        return self.client.model_registry.update_registered_model_permissions(registered_model_id, access_control_list=access_control_list)
+
+    def get_registered_model_id(self, registered_model_name):
+        model = self.client.model_registry.get_model(registered_model_name)
+        model = model.registered_model_databricks
+        return model.id
