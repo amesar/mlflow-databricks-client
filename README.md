@@ -2,10 +2,6 @@
 
 Python client for Databricks-specific MLflow REST API endpoints.
 
-## Release Notes
-
-Only the registered model and experiment get permission endpoints have been implemented.
-
 ## MLflow API Documentation
 
 * [Python API](https://www.mlflow.org/docs/latest/python_api/index.html) 
@@ -63,7 +59,14 @@ Naming patterns for Databricks-specific MLflow resource fall into three categori
 
 ## Usage
 
-For details see [databricks_mlflow_client/rest/client.py](databricks_mlflow_client/rest/client.py).
+### Source code
+
+  * Client definition: [mlflow_databricks_client/rest/client.py](mlflow_databricks_client/rest/client.py)
+  * Examples - [tests](tests):
+    * [test_rest_uc_model_permissions.py](tests/test_rest_uc_model_permissions.py)
+    * [test_rest_uc_oss.py](tests/test_rest_uc_oss.py)
+    * [test_rest_model_permissions.py](tests/test_rest_model_permissions.py)
+    * [test_rest_experiment_permissions.py](tests/test_rest_experiment_permissions.py)
 
 ### Credentials
 
