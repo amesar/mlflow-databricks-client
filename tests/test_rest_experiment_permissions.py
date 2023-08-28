@@ -15,18 +15,18 @@ def test_get_experiment_permissions_by_id():
     common_test.check_object_id(experiment_id, perms)
     assert perms.get("object_type") == "mlflowExperiment"
 
-def _test_get_experiment_permissions_by_name():
+def test_get_experiment_permissions_by_name():
     perms = client.get_experiment_permissions(experiment_name)
     dump_as_json(perms, func_name())
     assert perms.get("object_type") == "mlflowExperiment"
 
 
-def _test_get_experiment_permission_levels_by_id():
+def test_get_experiment_permission_levels_by_id():
     perms = client.get_experiment_permission_levels(experiment_id)
     dump_as_json(perms, func_name())
     common_test.do_test_get_experiment_permission_levels(perms)
 
-def _test_get_experiment_permission_levels_by_name():
+def test_get_experiment_permission_levels_by_name():
     perms = client.get_experiment_permission_levels(experiment_name)
     dump_as_json(perms, func_name())
     common_test.do_test_get_experiment_permission_levels(perms)
