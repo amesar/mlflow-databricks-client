@@ -30,6 +30,19 @@ class BaseDatabricksMlflowClient:
         return rsp["experiment"]["experiment_id"]
 
 
+    def set_experiment_permissions(self, experiment_id_or_name, access_control_list):
+        # https://docs.databricks.com/api/workspace/experiments/setexperimentpermissions
+        experiment_id = self._get_experiment_id(experiment_id_or_name)
+        resource = f"permissions/experiments/{experiment_id}"
+        return self.client.put(resource, { "access_control_list": access_control_list })
+
+    def update_experiment_permissions(self, experiment_id_or_name, access_control_list):
+        # https://docs.databricks.com/api/workspace/experiments/updateexperimentpermissions
+        experiment_id = self._get_experiment_id(experiment_id_or_name)
+        resource = f"permissions/experiments/{experiment_id}"
+        return self.client.patch(resource, { "access_control_list": access_control_list })
+
+
     def _get_registered_model_id(self, model_name_or_id, is_model_id=False):
         if is_model_id:
             model_id = model_name_or_id
