@@ -74,11 +74,25 @@ class DatabricksMlflowClient(BaseDatabricksMlflowClient):
         resource = f"permissions/registered-models/{model_id}"
         return self.client.get(resource)
 
+
     def get_registered_model_permission_levels(self, model_name_or_id, is_model_id=False):
         # https://docs.databricks.com/api/workspace/modelregistry/getregisteredmodelpermissionlevels
         model_id = self._get_registered_model_id(model_name_or_id, is_model_id)
         resource = f"permissions/registered-models/{model_id}/permissionLevels"
         return self.client.get(resource)
+
+
+    def set_registered_model_permissions(self, registered_model_id_or_name, access_control_list, is_model_id=False):
+        # https://docs.databricks.com/api/workspace/modelregistry/setregisteredmodelpermissions
+        registered_model_id = self._get_registered_model_id(registered_model_id_or_name, is_model_id)
+        resource = f"permissions/registered-models/{registered_model_id}"
+        return self.client.put(resource, { "access_control_list": access_control_list })
+
+    def update_registered_model_permissions(self, registered_model_id_or_name, access_control_list, is_model_id=False):
+        # https://docs.databricks.com/api/workspace/modelregistry/updateregisteredmodelpermissions
+        registered_model_id = self._get_registered_model_id(registered_model_id_or_name, is_model_id)
+        resource = f"permissions/registered-models/{registered_model_id}"
+        return self.client.patch(resource, { "access_control_list": access_control_list })
 
 
 class DatabricksUcMlflowClient:
