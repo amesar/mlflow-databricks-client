@@ -23,6 +23,10 @@ class HttpClient():
         return self._mutate(requests.post, resource, data)
 
 
+    def put(self, resource, data=None):
+        return self._mutate(requests.put, resource, data)
+
+
     def patch(self, resource, data=None):
         return self._mutate(requests.patch, resource, data)
 
