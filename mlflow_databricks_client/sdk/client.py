@@ -47,6 +47,20 @@ class BaseDatabricksMlflowClient:
         return self.client.permissions.update_permission(experiment_id, access_control_list)
 
 
+    def delete_runs(self, experiment_id, max_timestamp_millis, max_runs=None):
+        # https://docs.databricks.com/api/workspace/experiments/deleteruns
+        # https://databricks-sdk-py.readthedocs.io/en/latest/workspace/experiments.html#ExperimentsAPI.delete_runs
+        #resource = f"mlflow/databricks/runs/delete-runs"
+        #params = { "experiment_id": experiment_id, "max_timestamp_millis": max_timestamp_millis, "max_runs": max_runs }
+        #return self.client.post(resource, params)
+        return self.client.experiments.delete_runs(experiment_id, max_timestamp_millis, max_runs=max_runs)
+
+    def restore_runs(self, experiment_id, min_timestamp_millis, max_runs=None):
+        # https://docs.databricks.com/api/workspace/experiments/restoreruns
+        # https://databricks-sdk-py.readthedocs.io/en/latest/workspace/experiments.html#ExperimentsAPI.restore_runs
+        return self.client.experiments.restore_runs(experiment_id, min_timestamp_millis, max_runs=max_runs)
+
+
     def _get_experiment_id(self, experiment_id_or_name):
         """
         Gets an experiment either by ID or name.

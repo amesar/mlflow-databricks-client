@@ -53,6 +53,21 @@ class BaseDatabricksMlflowClient:
         return model_id
 
 
+    def delete_runs(self, experiment_id, max_timestamp_millis, max_runs=None):
+        # https://docs.databricks.com/api/workspace/experiments/deleteruns
+        # https://databricks-sdk-py.readthedocs.io/en/latest/workspace/experiments.html#ExperimentsAPI.delete_runs
+        resource = f"mlflow/databricks/runs/delete-runs"
+        params = { "experiment_id": experiment_id, "max_timestamp_millis": max_timestamp_millis, "max_runs": max_runs }
+        return self.client.post(resource, params)
+
+    def restore_runs(self, experiment_id, min_timestamp_millis, max_runs=None):
+        # https://docs.databricks.com/api/workspace/experiments/restoreruns
+        # https://databricks-sdk-py.readthedocs.io/en/latest/workspace/experiments.html#ExperimentsAPI.restore_runs
+        resource = f"mlflow/databricks/runs/restore-runs"
+        params = { "experiment_id": experiment_id, "min_timestamp_millis": min_timestamp_millis, "max_runs": max_runs }
+        return self.client.post(resource, params)
+
+
     def __repr__(self):
         return str(self.client)
 
