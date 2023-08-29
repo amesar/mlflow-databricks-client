@@ -60,6 +60,7 @@ class BaseDatabricksMlflowClient:
 class DatabricksMlflowClient(BaseDatabricksMlflowClient):
 
     def get_registered_model_permissions(self, registered_model_id):
+        # https://databricks-sdk-py.readthedocs.io/en/latest/workspace/model_registry.html#ModelRegistryAPI.get_registered_model_permissions
         # https://docs.databricks.com/api/workspace/modelregistry/getregisteredmodelpermissions
         return self.client.model_registry.get_registered_model_permissions(registered_model_id)
 
