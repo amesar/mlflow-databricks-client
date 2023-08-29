@@ -1,5 +1,6 @@
 from databricks.sdk import WorkspaceClient
 
+from databricks.sdk.service import catalog
 
 class BaseDatabricksMlflowClient:
     """
@@ -88,3 +89,19 @@ class DatabricksMlflowClient(BaseDatabricksMlflowClient):
         model = self.client.model_registry.get_model(registered_model_name)
         model = model.registered_model_databricks
         return model.id
+
+
+class DatabricksUcMlflowClient(BaseDatabricksMlflowClient):
+
+    def get_registered_model_effective_permissions(self, model_name):
+        # https://docs.databricks.com/api/workspace/grants/geteffective
+        # https://databricks-sdk-py.readthedocs.io/en/latest/workspace/grants.html#GrantsAPI.get
+        return self.client.grants.get_effective(catalog.SecurableType.FUNCTION, model_name)
+
+    def get_registered_model_permissions(self, model_name):
+        # https://docs.databricks.com/api/workspace/grants/get
+        # https://databricks-sdk-py.readthedocs.io/en/latest/workspace/grants.html#GrantsAPI.get_effective
+        return self.client.grants.get(catalog.SecurableType.FUNCTION, model_name)
+
+    def update_registered_model_permissions(self, model_name, changes):
+        return self.client.grants.update(catalog.SecurableType.FUNCTION, model_name, changes=changes)
