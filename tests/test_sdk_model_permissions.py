@@ -17,7 +17,7 @@ def test_get_registered_model_permissions():
     common_test.do_test_get_registered_model_permissions(perms)
     common_test.check_object_id(model_id, perms)
 
-def _test_get_registered_model_permissions_by_name():
+def test_get_registered_model_permissions_by_name():
     perms = client.get_registered_model_permissions_by_name(model_name)
     perms = dump_rsp(perms, func_name(), as_json)
     common_test.do_test_get_registered_model_permissions(perms)
