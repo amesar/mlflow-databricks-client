@@ -1,14 +1,10 @@
 # Databricks MLflow API Client
 
-Python client for Databricks-specific MLflow REST API endpoints that are scattered around the Databricks API namespace.
+Provides two shim-like client wrappers for the Databricks-specific MLflow REST API and the Databricks SDK.
 
-## Release Notes
-
-* WIP 
-* SDK client:
-  * Only has `get` experiment permission methods
-  * `set` and `update` experiment permission methods coming soon
-  * Registered model permission methods coming soon
+The two shim clients are:
+  * [REST client](out/rest/client.html) - directly calls the REST API and returns the actual API JSON payloads
+  * [SDK client](out/sdk/client.html) - pass-through to the Databricks SDK just for MLflow Databricks-specific methods
 
 ## MLflow API Documentation
 
@@ -86,9 +82,6 @@ Naming patterns for Databricks-specific MLflow resource fall into three categori
 
 ## Usage
 
-There are two clients:
-  * REST client - directly calls the REST API with signatures reflecting JSON payloads as returned by API
-  * SDK client - Pass-through shim to the Databricks SDK for just MLflow Databricks-specific methods
 
 ### REST API Usage
 
