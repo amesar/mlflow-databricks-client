@@ -152,3 +152,7 @@ print(model)
 ```
 ObjectPermissions(access_control_list=[AccessControlResponse(all_permissions=[Permission(inherited=True, inherited_from_object=['/directories/767933989557963'], permission_level=<PermissionLevel.CAN_MANAGE: 'CAN_MANAGE'>)], display_name='Andre API', group_name=None, service_principal_name=None, user_name='andre@mycompany.com'), AccessControlResponse(all_permissions=[Permission(inherited=True, inherited_from_object=['/directories/'], permission_level=<PermissionLevel.CAN_MANAGE: 'CAN_MANAGE'>)], display_name='root-service-principal-e2-demo-west-ws-do-not-delete', group_name=None, service_principal_name='091812d4-z5ec-4544-b6zf-64135891fee1', user_name=None), AccessControlResponse(all_permissions=[Permission(inherited=False, inherited_from_object=None, permission_level=<PermissionLevel.CAN_READ: 'CAN_READ'>)], display_name=None, group_name='users', service_principal_name=None, user_name=None), AccessControlResponse(all_permissions=[Permission(inherited=True, inherited_from_object=['/directories/'], permission_level=<PermissionLevel.CAN_MANAGE: 'CAN_MANAGE'>)], display_name=None, group_name='admins', service_principal_name=None, user_name=None)], object_id='/experiments/2668333326915655', object_type='mlflowExperiment')
 ```
+
+###  Tests
+
+See [tests/README.md](tests/README.md).

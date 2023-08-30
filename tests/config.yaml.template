@@ -1,4 +1,9 @@
 
+# Specify test models and experiments.
+# Models should have at least one version.
+# That version will slightly mutated in terms of description and tags.
+
+
 principal: first.last@mycomany.com
 experiment: /Users/first.last@mycompany.com/experiments/my_experiment
 
