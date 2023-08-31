@@ -287,6 +287,12 @@ class DatabricksUcMlflowClient:
         # ERROR: { "error_code":"INVALID_PARAMETER_VALUE","message":"Missing filter: please specify a filter parameter in the format `name = 'model_name'`."}"}
         return self._client_20.get("model-versions/search", _clean(locals()))
 
+
+    def __repr__(self):
+        msg = { "client_20": self._client_20, "client_21": self._client_21 }
+        return str(msg)
+
+
     # ==== 
 
 def _clean(args):

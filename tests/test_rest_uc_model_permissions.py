@@ -3,6 +3,7 @@ from . common_test import cfg
 from mlflow_databricks_client.common.utils import dump_as_json
 
 client = DatabricksUcMlflowClient()
+print("client:", client)
 
 model_name = cfg["unity_catalog_registry"]["model"]
 principal = cfg["principal"]
