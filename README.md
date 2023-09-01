@@ -88,11 +88,13 @@ Naming patterns for Databricks-specific MLflow resource fall into three categori
 #### Source code
 
   * Client definition: [mlflow_databricks_client/rest/client.py](mlflow_databricks_client/rest/client.py)
-  * Examples - [tests](tests):
-    * [test_rest_model_permissions.py](tests/test_rest_model_permissions.py)
-    * [test_rest_experiment_permissions.py](tests/test_rest_experiment_permissions.py)
-    * [test_rest_uc_model_permissions.py](tests/test_rest_uc_model_permissions.py)
-    * [test_rest_uc_oss.py](tests/test_rest_uc_oss.py)
+  * Examples:
+    * [Pytests examples](tests):
+      * [test_rest_model_permissions.py](tests/test_rest_model_permissions.py)
+      * [test_rest_experiment_permissions.py](tests/test_rest_experiment_permissions.py)
+      * [test_rest_uc_model_permissions.py](tests/test_rest_uc_model_permissions.py)
+      * [test_rest_uc_oss.py](tests/test_rest_uc_oss.py)
+    * [Databricks notebook examples](databricks_notebooks) 
 
 #### Credentials
 
