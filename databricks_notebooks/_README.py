@@ -1,4 +1,11 @@
 # Databricks notebook source
 # MAGIC %md ### mlflow-databricks-client
 # MAGIC
-# MAGIC Last updated: 2023-08-31
+# MAGIC ##### Standard MLflow (non Unity Catalog)
+# MAGIC * [Get_Registered_Model_Permissions]($Get_Registered_Model_Permissions)
+# MAGIC * [Get_Experiment_Permissions]($Get_Experiment_Permissions)
+# MAGIC
+# MAGIC ##### Unity Catalog MLflow
+# MAGIC * [Get_UC_Registered_Model_Permissions]($Get_UC_Registered_Model_Permissions)
+# MAGIC
+# MAGIC Last updated: 2023-09-01
