@@ -1,5 +1,5 @@
 # Databricks notebook source
-# MAGIC %md ### mlflow-databricks-client
+# MAGIC %md ### Databricks Notebooks
 # MAGIC
 # MAGIC ##### Standard MLflow (non Unity Catalog)
 # MAGIC * [Get_Registered_Model_Permissions]($Get_Registered_Model_Permissions)
