@@ -21,12 +21,8 @@ class BaseDatabricksMlflowClient:
         <br>
         See https://databricks-sdk-py.readthedocs.io/en/latest/workspace/experiments.html#ExperimentsAPI.get_experiment_permissions
         """
-
         experiment_id = self._get_experiment_id(experiment_id_or_name)
-        return self._client.permissions.get(
-            request_object_type="experiments",
-            request_object_id=experiment_id
-        )
+        return self._client.experiments.get_experiment_permissions(experiment_id)
 
     def get_experiment_permission_levels(self, experiment_id_or_name):
         """
@@ -34,12 +30,8 @@ class BaseDatabricksMlflowClient:
         <br>
         See https://docs.databricks.com/api/workspace/experiments/getexperimentpermissionlevels
         """
-
         experiment_id = self._get_experiment_id(experiment_id_or_name)
-        return self._client.permissions.get_permission_levels(
-            request_object_type="experiments",
-            request_object_id=experiment_id
-        )
+        return self._client.experiments.get_experiment_permission_levels(experiment_id)
 
 
     def set_experiment_permissions(self, experiment_id_or_name, access_control_list):
@@ -50,7 +42,7 @@ class BaseDatabricksMlflowClient:
         """
 
         experiment_id = self._get_experiment_id(experiment_id_or_name)
-        return self._client.permissions.set_permission(experiment_id, access_control_list)
+        return self._client.experiments.set_experiment_permissions(experiment_id, access_control_list=access_control_list)
 
     def update_experiment_permissions(self, experiment_id_or_name, access_control_list):
         """
@@ -58,9 +50,8 @@ class BaseDatabricksMlflowClient:
         <br>
         See https://databricks-sdk-py.readthedocs.io/en/latest/workspace/experiments.html#ExperimentsAPI.update_experiment_permissions
         """
-
         experiment_id = self._get_experiment_id(experiment_id_or_name)
-        return self._client.permissions.update_permission(experiment_id, access_control_list)
+        return self._client.experiments.update_experiment_permissions(experiment_id, access_control_list=access_control_list)
 
 
     def delete_runs(self, experiment_id, max_timestamp_millis, max_runs=None):
@@ -69,9 +60,6 @@ class BaseDatabricksMlflowClient:
         <br>
         See https://databricks-sdk-py.readthedocs.io/en/latest/workspace/experiments.html#ExperimentsAPI.delete_runs
         """
-        #resource = f"mlflow/databricks/runs/delete-runs"
-        #params = { "experiment_id": experiment_id, "max_timestamp_millis": max_timestamp_millis, "max_runs": max_runs }
-        #return self._client.post(resource, params)
         return self._client.experiments.delete_runs(experiment_id, max_timestamp_millis, max_runs=max_runs)
 
     def restore_runs(self, experiment_id, min_timestamp_millis, max_runs=None):
@@ -137,6 +125,7 @@ class DatabricksMlflowClient(BaseDatabricksMlflowClient):
         See https://databricks-sdk-py.readthedocs.io/en/latest/workspace/model_registry.html#ModelRegistryAPI.update_registered_model_permissions
         """
         return self._client.model_registry.update_registered_model_permissions(registered_model_id, access_control_list=access_control_list)
+
 
     def get_registered_model_id(self, registered_model_name):
         """
