@@ -18,7 +18,7 @@ setup(
     zip_safe=False,
     install_requires=[
         "mlflow[skinny]",
-        " databricks-sdk",
+        "databricks-sdk",
         "wheel"
     ],
     extras_require= { "tests": [ "pytest","pytest-html>=3.2.0" ] },
