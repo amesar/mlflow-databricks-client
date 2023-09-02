@@ -14,7 +14,7 @@ principal = cfg["principal"]
 
 
 def test_get_registered_model_databricks():
-    model = client.get_registered_model(model_name)
+    model = client.get_registered_model_databricks(model_name)
     dump_as_json(model, func_name())
 
 
