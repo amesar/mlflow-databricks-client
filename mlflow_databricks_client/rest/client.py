@@ -4,10 +4,11 @@ REST client for Databricks-specific MLflow API.
 
 # pylint: disable=W0613 # Unused argument
 
+from mlflow_databricks_client.base_client import BaseDatabricksMlflowClient as _BaseDatabricksMlflowClient
 from . http_client import HttpClient
 
 
-class BaseDatabricksMlflowClient:
+class BaseDatabricksMlflowClient(_BaseDatabricksMlflowClient):
     """
     Common endpoints shared between non Unity Catalog and Unity Catalog implementations.
     """
@@ -19,21 +20,20 @@ class BaseDatabricksMlflowClient:
         self._client = HttpClient(api_prefix)
 
 
-    def get_experiment_permissions(self, experiment_id_or_name):
+    def _get_experiment_permissions(self, experiment_id):
         """
         See https://docs.databricks.com/api/workspace/experiments/getexperimentpermissions
         """
-        experiment_id = self._get_experiment_id(experiment_id_or_name)
         resource = f"permissions/experiments/{experiment_id}"
         return self._client.get(resource)
 
-    def get_experiment_permission_levels(self, experiment_id_or_name):
+    def _get_experiment_permission_levels(self, experiment_id):
         """
         See https://docs.databricks.com/api/workspace/experiments/getexperimentpermissionlevels
         """
-        experiment_id = self._get_experiment_id(experiment_id_or_name)
         resource = f"permissions/experiments/{experiment_id}/permissionLevels"
         return self._client.get(resource)
+
 
     def _get_experiment_id(self, experiment_id_or_name):
         """ Gets an experiment either by ID or name.  """
@@ -44,19 +44,17 @@ class BaseDatabricksMlflowClient:
         return rsp["experiment"]["experiment_id"]
 
 
-    def set_experiment_permissions(self, experiment_id_or_name, access_control_list):
+    def _set_experiment_permissions(self, experiment_id, access_control_list):
         """
         See https://docs.databricks.com/api/workspace/experiments/setexperimentpermissions
         """
-        experiment_id = self._get_experiment_id(experiment_id_or_name)
         resource = f"permissions/experiments/{experiment_id}"
         return self._client.put(resource, { "access_control_list": access_control_list })
 
-    def update_experiment_permissions(self, experiment_id_or_name, access_control_list):
+    def _update_experiment_permissions(self, experiment_id, access_control_list):
         """
         See https://docs.databricks.com/api/workspace/experiments/updateexperimentpermissions
         """
-        experiment_id = self._get_experiment_id(experiment_id_or_name)
         resource = f"permissions/experiments/{experiment_id}"
         return self._client.patch(resource, { "access_control_list": access_control_list })
 
@@ -67,7 +65,7 @@ class BaseDatabricksMlflowClient:
         return model["id"]
 
 
-    def delete_runs(self, experiment_id, max_timestamp_millis, max_runs=None):
+    def _delete_runs(self, experiment_id, max_timestamp_millis, max_runs=None):
         """
         See https://databricks-sdk-py.readthedocs.io/en/latest/workspace/experiments.html#ExperimentsAPI.delete_runs
         """
@@ -75,7 +73,7 @@ class BaseDatabricksMlflowClient:
         params = { "experiment_id": experiment_id, "max_timestamp_millis": max_timestamp_millis, "max_runs": max_runs }
         return self._client.post(resource, params)
 
-    def restore_runs(self, experiment_id, min_timestamp_millis, max_runs=None):
+    def _restore_runs(self, experiment_id, min_timestamp_millis, max_runs=None):
         """
         See https://databricks-sdk-py.readthedocs.io/en/latest/workspace/experiments.html#ExperimentsAPI.restore_runs
         """
