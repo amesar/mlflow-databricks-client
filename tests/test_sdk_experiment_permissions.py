@@ -31,9 +31,9 @@ acl = None
 
 def test_set_experiment_permissions(): # TODO
     rsp = client.set_experiment_permissions(experiment_id, acl)
-    perms = dump_rsp(rsp, func_name())
+    dump_rsp(rsp, func_name())
     
 
 def _update_experiment_permissions(): # TODO
     rsp = client.update_experiment_permissions(experiment_id, acl)
-    perms = dump_rsp(rsp, func_name())
+    dump_rsp(rsp, func_name())

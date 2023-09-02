@@ -5,6 +5,7 @@ REST client for Databricks-specific MLflow API.
 # pylint: disable=W0613 # Unused argument
 
 from mlflow_databricks_client.base_client import BaseDatabricksMlflowClient as _BaseDatabricksMlflowClient
+from mlflow_databricks_client.base_client import DatabricksMlflowClient as _DatabricksMlflowClient
 from . http_client import HttpClient
 
 
@@ -86,7 +87,7 @@ class BaseDatabricksMlflowClient(_BaseDatabricksMlflowClient):
         return str(self._client)
 
 
-class DatabricksMlflowClient(BaseDatabricksMlflowClient):
+class DatabricksMlflowClient(BaseDatabricksMlflowClient, _DatabricksMlflowClient):
     """
     Endpoints that only apply to non Unity Catalog registered models.
     """
@@ -108,10 +109,6 @@ class DatabricksMlflowClient(BaseDatabricksMlflowClient):
         resource = f"permissions/registered-models/{model_id}"
         return self._client.get(resource)
 
-    def get_registered_model_permissions_by_name(self, model_name):
-        model_id = self._get_registered_model_id(model_name)
-        return self.get_registered_model_permissions(model_id)
-
 
     def get_registered_model_permission_levels(self, model_id):
         """
@@ -119,10 +116,6 @@ class DatabricksMlflowClient(BaseDatabricksMlflowClient):
         """
         resource = f"permissions/registered-models/{model_id}/permissionLevels"
         return self._client.get(resource)
-
-    def get_registered_model_permission_levels_by_name(self, model_name):
-        model_id = self._get_registered_model_id(model_name)
-        return self.get_registered_model_permission_levels(model_id)
 
 
     def set_registered_model_permissions(self, model_id, access_control_list=None):

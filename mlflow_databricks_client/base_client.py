@@ -64,3 +64,43 @@ class BaseDatabricksMlflowClient(metaclass=ABCMeta):
     @abstractmethod
     def _get_experiment_id(self, experiment_id_or_name):
         pass
+
+
+class DatabricksMlflowClient(BaseDatabricksMlflowClient):
+    """
+    Common endpoints shared between non Unity Catalog and Unity Catalog implementations.
+    """ 
+
+    @abstractmethod
+    def get_registered_model_databricks(self, model_name):
+        pass
+
+
+    @abstractmethod
+    def get_registered_model_permissions(self, model_id):
+        pass
+    def get_registered_model_permissions_by_name(self, model_name):
+        model_id = self._get_registered_model_id(model_name)
+        return self.get_registered_model_permissions(model_id)
+
+
+    @abstractmethod
+    def get_registered_model_permission_levels(self, model_id):
+        pass
+    def get_registered_model_permission_levels_by_name(self, model_name):
+        model_id = self._get_registered_model_id(model_name)
+        return self.get_registered_model_permission_levels(model_id)
+
+
+    @abstractmethod
+    def set_registered_model_permissions(self, model_id, access_control_list=None):
+        pass
+
+    @abstractmethod
+    def update_registered_model_permissions(self, model_id, access_control_list=None):
+        pass
+
+
+    @abstractmethod
+    def _get_registered_model_id(self, model_name):
+        pass

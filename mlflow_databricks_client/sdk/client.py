@@ -5,6 +5,7 @@ Databricks SDK client for Databricks-specific MLflow API.
 from databricks.sdk import WorkspaceClient
 from databricks.sdk.service import catalog
 from mlflow_databricks_client.base_client import BaseDatabricksMlflowClient as _BaseDatabricksMlflowClient
+from mlflow_databricks_client.base_client import DatabricksMlflowClient as _DatabricksMlflowClient
 
 
 class BaseDatabricksMlflowClient(_BaseDatabricksMlflowClient):
@@ -81,7 +82,7 @@ class BaseDatabricksMlflowClient(_BaseDatabricksMlflowClient):
         return self._client.config._inner.get("host")
 
 
-class DatabricksMlflowClient(BaseDatabricksMlflowClient):
+class DatabricksMlflowClient(BaseDatabricksMlflowClient, _DatabricksMlflowClient):
     """
     Endpoints that only apply to non Unity Catalog registered models.
     """
@@ -98,8 +99,8 @@ class DatabricksMlflowClient(BaseDatabricksMlflowClient):
         """
         return self._client.model_registry.get_registered_model_permissions(model_id)
 
-    def get_registered_model_permissions_by_name(self, registered_model_name):
-        model_id = self.get_registered_model_id(registered_model_name)
+    def get_registered_model_permissions_by_name(self, model_name):
+        model_id = self._get_registered_model_id(model_name)
         return self._client.model_registry.get_registered_model_permissions(model_id)
 
 
@@ -109,29 +110,29 @@ class DatabricksMlflowClient(BaseDatabricksMlflowClient):
         """
         return self._client.model_registry.get_registered_model_permission_levels(model_id)
 
-    def get_registered_model_permissions_levels_by_name(self, registered_model_name):
-        model_id = self.get_registered_model_id(registered_model_name)
+    def get_registered_model_permissions_levels_by_name(self, model_name):
+        model_id = self._get_registered_model_id(model_name)
         return self._client.model_registry.get_registered_model_permission_levels(model_id)
 
 
-    def set_registered_model_permissions(self, model_id, access_control_list):
+    def set_registered_model_permissions(self, model_id, access_control_list=None):
         """
         See https://databricks-sdk-py.readthedocs.io/en/latest/workspace/model_registry.html#ModelRegistryAPI.set_registered_model_permissions
         """
         return self._client.model_registry.set_registered_model_permissions(model_id, access_control_list=access_control_list)
 
-    def update_registered_model_permissions(self, model_id, access_control_list):
+    def update_registered_model_permissions(self, model_id, access_control_list=None):
         """
         See https://databricks-sdk-py.readthedocs.io/en/latest/workspace/model_registry.html#ModelRegistryAPI.update_registered_model_permissions
         """
         return self._client.model_registry.update_registered_model_permissions(model_id, access_control_list=access_control_list)
 
 
-    def get_registered_model_id(self, registered_model_name):
+    def _get_registered_model_id(self, model_name):
         """
         See https://databricks-sdk-py.readthedocs.io/en/latest/workspace/model_registry.html#ModelRegistryAPI.get_model
         """
-        model = self._client.model_registry.get_model(registered_model_name)
+        model = self._client.model_registry.get_model(model_name)
         model = model.registered_model_databricks
         return model.id
 
