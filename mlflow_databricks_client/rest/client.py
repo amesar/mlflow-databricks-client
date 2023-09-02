@@ -2,6 +2,8 @@
 REST client for Databricks-specific MLflow API.
 """
 
+# pylint: disable=W0613 # Unused argument
+
 from . http_client import HttpClient
 
 
@@ -293,8 +295,6 @@ class DatabricksUcMlflowClient:
         msg = { "client_20": self._client_20, "client_21": self._client_21 }
         return str(msg)
 
-
-    # ==== 
 
 def _clean(args):
     args.pop("self", None)
