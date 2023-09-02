@@ -3,9 +3,8 @@ from abc import abstractmethod, ABCMeta
 
 class BaseDatabricksMlflowClient(metaclass=ABCMeta):
     """
-    Common methods shared between non Unity Catalog and Unity Catalog implementations.
+    Methods shared between non Unity Catalog and Unity Catalog implementations.
     """
-
 
     def get_experiment_permissions(self, experiment_id_or_name):
         experiment_id = self._get_experiment_id(experiment_id_or_name)
@@ -68,7 +67,7 @@ class BaseDatabricksMlflowClient(metaclass=ABCMeta):
 
 class DatabricksMlflowClient(BaseDatabricksMlflowClient):
     """
-    Common endpoints shared between non Unity Catalog and Unity Catalog implementations.
+    Methods that only apply to non Unity Catalog registered models.
     """ 
 
     @abstractmethod
@@ -79,6 +78,7 @@ class DatabricksMlflowClient(BaseDatabricksMlflowClient):
     @abstractmethod
     def get_registered_model_permissions(self, model_id):
         pass
+
     def get_registered_model_permissions_by_name(self, model_name):
         model_id = self._get_registered_model_id(model_name)
         return self.get_registered_model_permissions(model_id)
@@ -87,6 +87,7 @@ class DatabricksMlflowClient(BaseDatabricksMlflowClient):
     @abstractmethod
     def get_registered_model_permission_levels(self, model_id):
         pass
+
     def get_registered_model_permission_levels_by_name(self, model_name):
         model_id = self._get_registered_model_id(model_name)
         return self.get_registered_model_permission_levels(model_id)
@@ -103,4 +104,22 @@ class DatabricksMlflowClient(BaseDatabricksMlflowClient):
 
     @abstractmethod
     def _get_registered_model_id(self, model_name):
+        pass
+
+
+class DatabricksUcMlflowClient(BaseDatabricksMlflowClient):
+    """ 
+    Methods that only apply to Unity Catalog registered models.
+    """ 
+
+    @abstractmethod
+    def get_registered_model_effective_permissions(self, model_name):
+        pass
+
+    @abstractmethod
+    def get_registered_model_permissions(self, model_name):
+        pass
+
+    @abstractmethod
+    def update_registered_model_permissions(self, model_name, changes):
         pass

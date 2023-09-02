@@ -6,15 +6,16 @@ REST client for Databricks-specific MLflow API.
 
 from mlflow_databricks_client.base_client import BaseDatabricksMlflowClient as _BaseDatabricksMlflowClient
 from mlflow_databricks_client.base_client import DatabricksMlflowClient as _DatabricksMlflowClient
+from mlflow_databricks_client.base_client import DatabricksUcMlflowClient as _DatabricksUcMlflowClient
 from . http_client import HttpClient
 
 
 class BaseDatabricksMlflowClient(_BaseDatabricksMlflowClient):
     """
-    Common endpoints shared between non Unity Catalog and Unity Catalog implementations.
+    Methods shared between non Unity Catalog and Unity Catalog implementations.
     """
 
-    def __init__(self, api_prefix):
+    def __init__(self, api_prefix="api/2.0"):
         """
         :param api_prefix: Resource prefix such as "api/2.0" or "api/2.1" or "api/2.0/mlflow/unity-catalog".
         """
@@ -89,8 +90,9 @@ class BaseDatabricksMlflowClient(_BaseDatabricksMlflowClient):
 
 class DatabricksMlflowClient(BaseDatabricksMlflowClient, _DatabricksMlflowClient):
     """
-    Endpoints that only apply to non Unity Catalog registered models.
+    Methods that only apply to non Unity Catalog registered models.
     """
+
     def __init__(self):
         super().__init__("api/2.0")
 
@@ -133,11 +135,13 @@ class DatabricksMlflowClient(BaseDatabricksMlflowClient, _DatabricksMlflowClient
         return self._client.patch(resource, { "access_control_list": access_control_list })
 
 
-class DatabricksUcMlflowClient:
+class DatabricksUcMlflowClient(BaseDatabricksMlflowClient, _DatabricksUcMlflowClient):
     """
-    Endpoints that only apply to Unity Catalog registered models.
+    Methods that only apply to Unity Catalog registered models.
     """
+
     def __init__(self):
+        super().__init__()
         self._client_21 = HttpClient("api/2.1")
         self._client_20 = HttpClient("api/2.0/mlflow/unity-catalog")
 
