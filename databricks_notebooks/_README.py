@@ -2,10 +2,10 @@
 # MAGIC %md ### Databricks Notebooks
 # MAGIC
 # MAGIC ##### Standard MLflow (non Unity Catalog)
-# MAGIC * [Get_Registered_Model_Permissions]($Get_Registered_Model_Permissions)
-# MAGIC * [Get_Experiment_Permissions]($Get_Experiment_Permissions)
+# MAGIC * [Registered_Model_Permissions]($Registered_Model_Permissions) -  get and update permissions
+# MAGIC * [Get_Experiment_Permissions]($Get_Experiment_Permissions) - get permissions
 # MAGIC
 # MAGIC ##### Unity Catalog MLflow
-# MAGIC * [Get_UC_Registered_Model_Permissions]($Get_UC_Registered_Model_Permissions)
+# MAGIC * [UC_Registered_Model_Permissions]($Get_UC_Registered_Model_Permissions) - get and update permissions
 # MAGIC
-# MAGIC Last updated: 2023-09-01
+# MAGIC Last updated: 2023-09-02
