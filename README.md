@@ -3,8 +3,8 @@
 Provides two shim-like client wrappers for the Databricks-specific MLflow REST API and the Databricks SDK.
 
 The two shim clients are:
-  * [REST client](docs/rest/client.html) - directly calls the REST API and returns the actual API JSON payloads
-  * [SDK client](docs/sdk/client.html) - pass-through to the Databricks SDK just for MLflow Databricks-specific methods
+  * [REST client](docs/mlflow_databricks_client/rest/client.html) - directly calls the REST API and returns the actual API JSON payloads
+  * [SDK client](docs/mlflow_databricks_client/sdk/client.html) - pass-through to the Databricks SDK just for MLflow Databricks-specific methods
 
 ## MLflow API Documentation
 
