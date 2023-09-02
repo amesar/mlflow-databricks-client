@@ -70,3 +70,7 @@ from mlflow_databricks_client.common.utils import dump_as_json
 def assert_widget(value, name):
     if len(value.rstrip())==0:
         raise RuntimeError(f"ERROR: '{name}' widget is required")
+
+# COMMAND ----------
+
+user = dbutils.notebook.entry_point.getDbutils().notebook().getContext().tags().get("user").get()
