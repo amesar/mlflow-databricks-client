@@ -4,6 +4,7 @@ REST client for Databricks-specific MLflow API.
 
 from . http_client import HttpClient
 
+
 class BaseDatabricksMlflowClient:
     """
     Common endpoints shared between non Unity Catalog and Unity Catalog implementations.
@@ -120,7 +121,7 @@ class DatabricksMlflowClient(BaseDatabricksMlflowClient):
         return self._client.get(resource)
 
 
-    def set_registered_model_permissions(self, registered_model_id_or_name, access_control_list, is_model_id=False):
+    def set_registered_model_permissions(self, registered_model_id_or_name, access_control_list=None, is_model_id=False):
         """
         See https://docs.databricks.com/api/workspace/modelregistry/setregisteredmodelpermissions
         """
@@ -128,7 +129,7 @@ class DatabricksMlflowClient(BaseDatabricksMlflowClient):
         resource = f"permissions/registered-models/{registered_model_id}"
         return self._client.put(resource, { "access_control_list": access_control_list })
 
-    def update_registered_model_permissions(self, registered_model_id_or_name, access_control_list, is_model_id=False):
+    def update_registered_model_permissions(self, registered_model_id_or_name, access_control_list=None, is_model_id=False):
         """
         See https://docs.databricks.com/api/workspace/modelregistry/updateregisteredmodelpermissions
         """
@@ -161,12 +162,12 @@ class DatabricksUcMlflowClient:
         resource =  f"unity-catalog/permissions/function/{model_name}"
         return self._client_21.get(resource) 
 
-    def update_registered_model_permissions(self, model_name, permissions):
+    def update_registered_model_permissions(self, model_name, changes):
         """
         See https://docs.databricks.com/api/workspace/grants/update
         """
         resource = f"unity-catalog/permissions/function/{model_name}"
-        return self._client_21.patch(resource, permissions) 
+        return self._client_21.patch(resource, changes) 
 
 
     # ==== api/2.0/mlflow/unity-catalog - Standard OSS methods. Forwards to new endpoint - unchanged signature from non-UC.

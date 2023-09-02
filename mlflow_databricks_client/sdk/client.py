@@ -171,5 +171,7 @@ class DatabricksUcMlflowClient(BaseDatabricksMlflowClient):
     def update_registered_model_permissions(self, model_name, changes):
         """
         See https://databricks-sdk-py.readthedocs.io/en/latest/workspace/grants.html#GrantsAPI.update
+        <br>
+        See https://docs.databricks.com/api/workspace/grants/update
         """
         return self._client.grants.update(catalog.SecurableType.FUNCTION, model_name, changes=changes)

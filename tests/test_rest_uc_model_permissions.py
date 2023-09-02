@@ -30,7 +30,7 @@ def test_get_registered_model_permissions():
 
 def test_update_registered_model_permissions_add():
     privilege = "APPLY_TAG"
-    perms = {
+    changes = {
       "changes": [
         {
           "principal": principal,
@@ -38,8 +38,8 @@ def test_update_registered_model_permissions_add():
         }
       ]
     }
-    dump_as_json(perms, "Permissions to update")
-    rsp = client.update_registered_model_permissions(model_name, perms)
+    dump_as_json(changes, "Permissions to update")
+    rsp = client.update_registered_model_permissions(model_name, changes)
     dump_as_json(rsp,"update_registered_model_permissions")
     _check_privelege_update(rsp, privilege)
 
@@ -55,7 +55,7 @@ def test_update_registered_model_permissions_remove():
     dump_as_json(rsp, "get_registered_model_effective_permissions")
     _check_privelege_get(rsp, privilege)
 
-    perms = {
+    changes = {
       "changes": [
         {
           "principal": principal,
@@ -63,8 +63,8 @@ def test_update_registered_model_permissions_remove():
         }
       ]
     }
-    dump_as_json(perms, "Permissions to update")
-    rsp = client.update_registered_model_permissions(model_name, perms)
+    dump_as_json(changes, "Permissions to update")
+    rsp = client.update_registered_model_permissions(model_name, changes)
     dump_as_json(rsp,"update_registered_model_permissions")
 
     rsp = client.get_registered_model_effective_permissions(model_name)

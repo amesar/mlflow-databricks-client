@@ -33,3 +33,9 @@ def test_get_registered_model_permission_levels_by_name():
     perms = client.get_registered_model_permission_levels(model_name)
     perms = dump_rsp(perms, func_name(), as_json)
     common_test.do_test_get_experiment_permission_levels(perms)
+
+
+# def test_set_registered_model_permissions(): # TODO: * No examples or doc links for RegisteredModelAccessControlRequest
+
+
+# def test_update_registered_model_permissions(): # TODO: * No examples or doc links for RegisteredModelAccessControlRequest
