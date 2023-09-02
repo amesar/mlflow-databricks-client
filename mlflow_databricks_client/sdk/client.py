@@ -90,6 +90,11 @@ class DatabricksMlflowClient(BaseDatabricksMlflowClient):
     Endpoints that only apply to non Unity Catalog registered models.
     """
 
+    def get_registered_model_databricks(self, model_name):
+        return self._client.model_registry.get_model(model_name)
+        #return self._client.model_registry.get_registered_model(registered_model_id)
+
+
     def get_registered_model_permissions(self, registered_model_id):
         """
         See https://databricks-sdk-py.readthedocs.io/en/latest/workspace/model_registry.html#ModelRegistryAPI.get_registered_model_permissions

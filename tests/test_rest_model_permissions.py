@@ -14,8 +14,9 @@ principal = cfg["principal"]
 
 
 def test_get_registered_model_databricks():
-    model = client.get_registered_model_databricks(model_name)
+    model = client.get_registered_model(model_name)
     dump_as_json(model, func_name())
+
 
 def test_get_registered_model_permissions_by_name():
     perms = client.get_registered_model_permissions(model_name)

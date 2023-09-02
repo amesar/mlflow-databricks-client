@@ -10,6 +10,10 @@ model_id = client.get_registered_model_id(model_name)
 
 as_json = True
 
+def test_get_registered_model_databricks():
+    model = client.get_registered_model_databricks(model_name)
+    dump_rsp(model, func_name(), as_json)
+
 
 def test_get_registered_model_permissions():
     perms = client.get_registered_model_permissions(model_id)
