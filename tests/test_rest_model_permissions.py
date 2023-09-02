@@ -19,12 +19,12 @@ def test_get_registered_model_databricks():
 
 
 def test_get_registered_model_permissions_by_name():
-    perms = client.get_registered_model_permissions(model_name)
+    perms = client.get_registered_model_permissions(model_id)
     dump_as_json(perms, func_name())
     common_test.do_test_get_registered_model_permissions(perms)
 
 def test_get_registered_model_permissions_by_id():
-    perms = client.get_registered_model_permissions(model_id, is_model_id=True)
+    perms = client.get_registered_model_permissions(model_id)
     dump_as_json(perms, func_name())
     common_test.do_test_get_registered_model_permissions(perms)
     common_test.check_object_id(model_id, perms)
@@ -36,7 +36,7 @@ def test_get_registered_model_permission_levels_by_name():
     common_test.do_test_get_experiment_permission_levels(perms)
 
 def test_get_registered_model_permission_levels_by_id():
-    perms = client.get_registered_model_permission_levels(model_id, is_model_id=True)
+    perms = client.get_registered_model_permission_levels(model_id)
     common_test.do_test_get_experiment_permission_levels(perms)
 
 
@@ -48,9 +48,9 @@ _access_control_list = [
 ]
 
 def test_set_registered_model_permission():
-    perms = client.set_registered_model_permissions(model_id, _access_control_list, is_model_id=True)
+    perms = client.set_registered_model_permissions(model_id, _access_control_list)
     dump_as_json(perms, func_name())
 
 def test_update_registered_model_permission():
-    perms = client.update_registered_model_permissions(model_id, _access_control_list, is_model_id=True)
+    perms = client.update_registered_model_permissions(model_id, _access_control_list)
     dump_as_json(perms, func_name())
