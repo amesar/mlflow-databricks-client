@@ -1,4 +1,5 @@
-import json, os
+import os
+import json
 import requests
 from mlflow.utils.databricks_utils import get_databricks_host_creds
 
@@ -49,9 +50,17 @@ class HttpClient():
     def _check_response(self, rsp, params=None):
         from requests.exceptions import HTTPError
         if rsp.status_code < 200 or rsp.status_code > 299:
-            msg = { "http_status_code": rsp.status_code, "uri": rsp.url, "method": rsp.request.method, "params": params, "response": rsp.text }
+            rsp_dct = self._to_dict(rsp.text)
+            msg = { "http_status_code": rsp.status_code, "uri": rsp.url, "method": rsp.request.method, "params": params, "response": rsp_dct }
             raise HTTPError(json.dumps(msg))
         return rsp
+
+    def _to_dict(self, s):
+        import json
+        try:
+            return json.loads(s)
+        except json.decoder.JSONDecodeError:
+            return s
 
     def _mk_uri(self, resource):
         return f"{self.api_uri}/{resource}"
