@@ -1,12 +1,15 @@
+from databricks.sdk.service.ml import ExperimentAccessControlRequest, ExperimentPermissionLevel
+
 from mlflow_databricks_client.sdk.client import DatabricksMlflowClient
 from . import common_test
-from . common_test import func_name
+from . common_test import cfg, func_name
 from . sdk_test_utils import dump_rsp
 
 client = DatabricksMlflowClient()
 
-experiment_name = common_test.cfg["experiment"]
+experiment_name = cfg["experiment"]
 experiment_id = client._get_experiment_id(experiment_name)
+principal = cfg["principal"]
 
 as_json = True
 
@@ -27,13 +30,16 @@ def test_get_experiment_permission_levels_by_id():
     common_test.do_test_get_experiment_permission_levels(perms)
 
 
-acl = None
+acl = [ ExperimentAccessControlRequest(
+             user_name = principal,
+             permission_level = ExperimentPermissionLevel.CAN_MANAGE
+      ) ]
 
-def test_set_experiment_permissions(): # TODO
+def test_set_experiment_permissions():
     rsp = client.set_experiment_permissions(experiment_id, acl)
-    dump_rsp(rsp, func_name())
+    dump_rsp(rsp, func_name(), as_json)
     
 
-def _update_experiment_permissions(): # TODO
+def test_update_experiment_permissions():
     rsp = client.update_experiment_permissions(experiment_id, acl)
-    dump_rsp(rsp, func_name())
+    dump_rsp(rsp, func_name(), as_json)
