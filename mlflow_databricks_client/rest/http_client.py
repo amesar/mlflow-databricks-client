@@ -10,6 +10,8 @@ class HttpClient():
     def __init__(self, api_prefix="api/2.0"):
         self.creds = get_databricks_host_creds()
         self.api_uri = os.path.join(self.creds.host, api_prefix)
+        if self.api_uri[-1] == "/":
+            self.api_uri = self.api_uri[:-1]
         self.headers ={ "Authorization": f"Bearer {self.creds.token}" }
 
 
@@ -56,7 +58,6 @@ class HttpClient():
         return rsp
 
     def _to_dict(self, s):
-        import json
         try:
             return json.loads(s)
         except json.decoder.JSONDecodeError:
