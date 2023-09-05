@@ -32,7 +32,7 @@ def test_get_experiment_permission_levels_by_name():
     common_test.do_test_get_experiment_permission_levels(perms)
 
 
-_access_control_list = [
+acl = [
   {
     "user_name": principal,
     "permission_level": "CAN_MANAGE"
@@ -40,9 +40,9 @@ _access_control_list = [
 ]
 
 def test_set_experiment_permission():
-    perms = client.set_experiment_permissions(experiment_id, _access_control_list)
+    perms = client.set_experiment_permissions(experiment_id, acl)
     dump_as_json(perms, func_name())
 
 def test_update_experiment_permission():
-    perms = client.update_experiment_permissions(experiment_id, _access_control_list)
+    perms = client.update_experiment_permissions(experiment_id, acl)
     dump_as_json(perms, func_name())

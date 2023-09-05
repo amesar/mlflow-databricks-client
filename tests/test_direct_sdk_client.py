@@ -24,18 +24,18 @@ principal = cfg["principal"]
 
 # ==== Experiment Permisions
 
-# Get experiment permissions
+# == Get experiment permissions
 
-def test_get_experiments_permissions():
+def test_get_experiment_permissions():
     rsp = sdk_client.experiments.get_experiment_permissions(experiment_id)
     dump_rsp(rsp, func_name(), as_json)
 
-def test_get_experiments_permission_levels():
+def test_get_experiment_permission_levels():
     rsp = sdk_client.experiments.get_experiment_permission_levels(experiment_id)
     dump_rsp(rsp, func_name(), as_json)
 
 
-# Set/update experiment permissions
+# == Set/update experiment permissions
 
 from databricks.sdk.service.ml import ExperimentAccessControlRequest, ExperimentPermissionLevel
 
@@ -46,18 +46,18 @@ acl = [
   ) 
 ]
 
-def test_set_experiments_permission():
+def test_set_experiment_permission():
     rsp = sdk_client.experiments.set_experiment_permissions(experiment_id, access_control_list=acl)
     dump_rsp(rsp, func_name(), as_json)
 
-def test_update_experiments_permission():
+def test_update_experiment_permission():
     rsp = sdk_client.experiments.update_experiment_permissions(experiment_id, access_control_list=acl)
     dump_rsp(rsp, func_name(), as_json)
 
 
 # ==== Registered Model Permissions
 
-# Get registered model permissions
+# == Get registered model permissions
 
 def test_get_registered_model_permissions():
     rsp = sdk_client.model_registry.get_registered_model_permissions(model_id)
@@ -68,7 +68,7 @@ def test_get_registered_model_permission_levels():
     dump_rsp(rsp, func_name(), as_json)
 
 
-# Set/update registered model permissions
+# == Set/update registered model permissions
 
 from databricks.sdk.service.ml import RegisteredModelAccessControlRequest, RegisteredModelPermissionLevel
 
@@ -96,7 +96,7 @@ def test_uc_get_registered_model_effective_permissions():
     rsp = sdk_client.grants.get_effective(catalog.SecurableType.FUNCTION, uc_model_name)
     dump_rsp(rsp, func_name(), as_json)
 
-def test_uc_set_registered_model_permission():
+def test_uc_get_registered_model_permission():
     rsp = sdk_client.grants.get(catalog.SecurableType.FUNCTION, uc_model_name)
     dump_rsp(rsp, func_name(), as_json)
 
