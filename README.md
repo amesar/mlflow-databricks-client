@@ -1,10 +1,23 @@
 # Databricks MLflow API Client
 
-Provides two shim-like client wrappers for the Databricks-specific MLflow REST API and the Databricks SDK.
+Provides client wrappers for the Databricks-specific MLflow API endpoints.
+The client wrapper captures only Databricks-specific methods that do not exist in OSS MLflow or have alternative
+endpoints such as Unity Catalog registered models.
 
-The two shim clients are:
-  * [REST client](docs/mlflow_databricks_client/rest/client.html) - directly calls the REST API and returns the actual API JSON payloads
-  * [SDK client](docs/mlflow_databricks_client/sdk/client.html) - pass-through to the Databricks SDK just for MLflow Databricks-specific methods
+Two shim clients for the Databricks-specific MLflow REST API
+* Client for REST API 
+* Client for Databricks Python SDK
+
+#### Documentation for client implementations
+
+| File | Doc | Source | Note |
+|----|----|---|---|
+| Index.html     | | [link](docs/index.html) | |
+| base_client.py | [link](docs/mlflow_databricks_client/base_client.html) | [link](mlflow_databricks_client/base_client.py) | Base class definitions for client |
+| rest/client.py | [link](docs/mlflow_databricks_client/rest/client.html) | [link](mlflow_databricks_client/rest/client.py) | Directly calls the REST API and returns the actual API JSON payloads |
+| sdk/client.py | [link](docs/mlflow_databricks_client/sdk/client.html) | [link](mlflow_databricks_client/sdk/client.py) | Pass-through to the Databricks SDK just for MLflow Databricks-specific methods |
+
+
 
 ## MLflow API Documentation
 
@@ -30,6 +43,7 @@ The two shim clients are:
   * [Model Registry](https://databricks-sdk-py.readthedocs.io/en/latest/workspace/model_registry.html)
 * [Unity Catalog](https://databricks-sdk-py.readthedocs.io/en/latest/workspace/workspace-catalog.html)
   * [Grants aka Permissions](https://databricks-sdk-py.readthedocs.io/en/latest/workspace/grants.html)
+  * [ Model Versions ](https://databricks-sdk-py.readthedocs.io/en/latest/workspace/model_versions.html)
 
 ## Databricks-specific  MLflow REST API Endpoints
 
@@ -87,14 +101,17 @@ Naming patterns for Databricks-specific MLflow resource fall into three categori
 
 #### Source code
 
-  * Client definition: [mlflow_databricks_client/rest/client.py](mlflow_databricks_client/rest/client.py)
-  * Examples:
-    * [Pytests examples](tests):
-      * [test_rest_model_permissions.py](tests/test_rest_model_permissions.py)
-      * [test_rest_experiment_permissions.py](tests/test_rest_experiment_permissions.py)
-      * [test_rest_uc_model_permissions.py](tests/test_rest_uc_model_permissions.py)
-      * [test_rest_uc_oss.py](tests/test_rest_uc_oss.py)
-    * [Databricks notebook examples](databricks_notebooks) 
+Client source definition: 
+  * [base_client.py](mlflow_databricks_client/base_client.py)
+  * [rest/client.py](mlflow_databricks_client/rest/client.py)
+  * [sdk/client.py](mlflow_databricks_client/sdk/client.py)
+
+Pytest examples:
+* [Pytests examples](tests)
+* Pytest direct low-leve client examples:
+  * [test_direct_rest_client.py](tests/test_direct_rest_client.py)
+  * [test_direct_sdk_client.py.py](tests/test_direct_sdk_client.py.py)
+* [Databricks notebook examples](databricks_notebooks) 
 
 #### Credentials
 
