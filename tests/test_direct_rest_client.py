@@ -86,7 +86,7 @@ def test_set_registered_model_permission():
     dump_as_json(rsp, func_name())
 
 def test_update_registered_model_permission():
-    rsp = client.patch(f"api/2.0/permissions/registered-models/{model_id}")
+    rsp = client.patch(f"api/2.0/permissions/registered-models/{model_id}", { "access_control_list": acl })
     dump_as_json(rsp, func_name())
 
 
